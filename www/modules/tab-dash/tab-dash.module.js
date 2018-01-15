@@ -15,7 +15,7 @@
                 url: '/dash',
                 views: {
                   'tab-dash': {
-                    templateUrl: '/www/modules/tab-dash/tab-dash.html',
+                    templateUrl: 'www/modules/tab-dash/tab-dash.html',
                     controller: 'dashController as dashCtrl'
                   }
                 }

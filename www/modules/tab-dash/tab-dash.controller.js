@@ -5,5 +5,5 @@
         .controller('dashController', DashCtrl);
 
     DashCtrl.$inject = [];
-    fuction DashCtrl () {};
+    function DashCtrl() { };
 })()
