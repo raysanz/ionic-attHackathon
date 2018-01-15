@@ -2,7 +2,7 @@
 (function () {
     'use strict'
 
-    angular.module('starter.tab-account', ['ui.router'])
+    angular.module('starter.tab-account', [])
         .config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']

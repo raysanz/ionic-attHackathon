@@ -2,7 +2,7 @@
 (function () {
     'use strict'
 
-    angular.module('starter.tab-chat', ['ui.router'])
+    angular.module('starter.tab-chat', [])
         .config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']

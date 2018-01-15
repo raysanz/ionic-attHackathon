@@ -2,7 +2,7 @@
 (function () {
     'use strict'
 
-    angular.module('starter.tab-dash', ['ui.router'])
+    angular.module('starter.tab-dash', [])
         .config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']

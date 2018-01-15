@@ -5,7 +5,7 @@ var rename = require('gulp-rename');
 
 // to add 
 const source = {
-  public: {
+  www: {
       src: [
           // main module
           'www/modules/app.js',
@@ -14,22 +14,22 @@ const source = {
           'www/modules/**/*.module.js',
 
           // other js files [controllers, services, etc.]
-          'www/modules/**/!(module)*.js'
+          'www/modules/**/!(*.module)*.js'
       ]
   }
 }
 
 const destinations = {
-  public: {
-      js: 'public-unrestricted/build'
+  www: {
+      js: 'www/build'
   }
 }
 
 const appWasBroken = {
-  public: false
+  www: false
 }
 
-gulp.task('public-js', buildApp('public'))
+gulp.task('www-js', buildApp('www'))
 
 
 // creates task to concat angular files
@@ -68,7 +68,8 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['dev']);
+gulp.task('dev', ['www-js', 'sass'])
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -83,7 +84,7 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', ['sass','public-js'], function() {
-  gulp.watch(source.public.src, ['public-js'])
+gulp.task('watch', ['sass','www-js'], function() {
+  gulp.watch(source.www.src, ['www-js'])
   gulp.watch(paths.sass, ['sass']);
 });
