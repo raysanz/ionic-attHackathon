@@ -2,8 +2,12 @@
     'use strict';
     angular
         .module('starter.tab-dash')
-        .controller('dashController', DashCtrl);
+        .controller('dashController', DashController);
 
-    DashCtrl.$inject = [];
-    function DashCtrl() { };
+    DashController.$inject = [];
+    function DashController() {
+        var $ctrl = this;
+        $ctrl.text = "hello how are you doing today?";
+
+    };
 })()

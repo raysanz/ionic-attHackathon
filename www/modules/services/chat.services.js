@@ -8,11 +8,7 @@
 
     //ideally this would hit a rest api
     function ChatServiceFactory($http, $q) {
-        return {
-            all: all,
-            get:get,
-            remove: remove
-        }
+
         // Might use a resource here that returns a JSON array
         // Some fake testing data
         var chats = [{
@@ -43,6 +39,7 @@
         }];
 
         function all() {
+            debugger;
             return chats;
         };
         function remove(chat) {
@@ -55,6 +52,11 @@
                 }
             }
             return null;
+        }
+        return {
+            all: all,
+            get: get,
+            remove: remove
         }
     };
 

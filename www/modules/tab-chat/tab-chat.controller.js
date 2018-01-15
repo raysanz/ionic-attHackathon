@@ -1,8 +1,8 @@
 (function () {
     angular.module('starter.tab-chat')
         .controller('chatsController', ChatController);
-    ChatController.$inject = ['chatService'];
-    function ChatController(chatService) {
+    ChatController.$inject = ['$scope', 'chatService'];
+    function ChatController($scope, chatService) {
 
         'use strict';
         // With the new view caching in Ionic, Controllers are only called
@@ -13,8 +13,9 @@
         //$scope.$on('$ionicView.enter', function(e) {
         //});
         let $ctrl = this;
+        $ctrl.text = "say something";
         $ctrl.chats = chatService.all();
-        $ctrl.remove = function (chat) {
+        $ctrl.remove = (chat) => {
             chatService.remove(chat);
         };
     }

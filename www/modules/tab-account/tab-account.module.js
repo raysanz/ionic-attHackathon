@@ -14,7 +14,7 @@
                 url: '/account',
                 views: {
                     'tab-account': {
-                        templateUrl: '/www/modules/tab-account/tab-account.html',
+                        templateUrl: 'modules/tab-account/tab-account.html',
                         controller: 'accountController as accountCtrl'
                     }
                 }

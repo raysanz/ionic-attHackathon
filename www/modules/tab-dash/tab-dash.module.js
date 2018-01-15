@@ -2,7 +2,7 @@
 (function () {
     'use strict'
 
-    angular.module('starter.tab-dash', [])
+    angular.module('starter.tab-dash', ['ui.router'])
         .config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']
@@ -15,7 +15,7 @@
                 url: '/dash',
                 views: {
                   'tab-dash': {
-                    templateUrl: 'www/modules/tab-dash/tab-dash.html',
+                    templateUrl: 'modules/tab-dash/tab-dash.html',
                     controller: 'dashController as dashCtrl'
                   }
                 }

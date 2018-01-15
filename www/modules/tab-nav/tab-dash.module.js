@@ -13,7 +13,7 @@
                 .state('tab', {
                 url: '/tab',
                 abstract: true,
-                templateUrl: '/www/modules/tab-nav/tabs.html'
+                templateUrl: 'modules/tab-nav/tabs.html'
               })
     };
 })();

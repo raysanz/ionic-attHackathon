@@ -61,8 +61,33 @@
             url: '/account',
             views: {
                 'tab-account': {
-                    templateUrl: '/www/modules/tab-account/tab-account.html',
+                    templateUrl: 'modules/tab-account/tab-account.html',
                     controller: 'accountController as accountCtrl'
+                }
+            }
+        });
+    };
+})();
+'use strict';
+
+/* global angular */
+(function () {
+    'use strict';
+
+    angular.module('starter.tab-dash', ['ui.router']).config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider
+        // Each tab has its own nav history stack:
+
+        .state('tab.dash', {
+            url: '/dash',
+            views: {
+                'tab-dash': {
+                    templateUrl: 'modules/tab-dash/tab-dash.html',
+                    controller: 'dashController as dashCtrl'
                 }
             }
         });
@@ -85,7 +110,7 @@
             url: '/chats',
             views: {
                 'tab-chats': {
-                    templateUrl: '/www/modules/tab-chat/tab-chats.html',
+                    templateUrl: 'modules/tab-chat/tab-chats.html',
                     controller: 'chatsController as chatsCtrl'
                 }
             }
@@ -93,33 +118,8 @@
             url: '/chats/:chatId',
             views: {
                 'tab-chats': {
-                    templateUrl: '/www/modules/tab-chat/chat-detail/chat-detail.html',
+                    templateUrl: 'modules/tab-chat/chat-detail/chat-detail.html',
                     controller: 'chatDetailController as chatDetailCtrl'
-                }
-            }
-        });
-    };
-})();
-'use strict';
-
-/* global angular */
-(function () {
-    'use strict';
-
-    angular.module('starter.tab-dash', []).config(RouteConfig);
-
-    RouteConfig.$inject = ['$stateProvider'];
-
-    function RouteConfig($stateProvider) {
-        $stateProvider
-        // Each tab has its own nav history stack:
-
-        .state('tab.dash', {
-            url: '/dash',
-            views: {
-                'tab-dash': {
-                    templateUrl: 'www/modules/tab-dash/tab-dash.html',
-                    controller: 'dashController as dashCtrl'
                 }
             }
         });
@@ -141,7 +141,7 @@
         .state('tab', {
             url: '/tab',
             abstract: true,
-            templateUrl: '/www/modules/tab-nav/tabs.html'
+            templateUrl: 'modules/tab-nav/tabs.html'
         });
     };
 })();
@@ -156,13 +156,10 @@
 
     //ideally this would hit a rest api
     function ChatServiceFactory($http, $q) {
-        return {
-            all: all,
-            get: get,
-            remove: remove
-            // Might use a resource here that returns a JSON array
-            // Some fake testing data
-        };var chats = [{
+
+        // Might use a resource here that returns a JSON array
+        // Some fake testing data
+        var chats = [{
             id: 0,
             name: 'Ben Sparrow',
             lastText: 'You on your way?',
@@ -190,6 +187,7 @@
         }];
 
         function all() {
+            debugger;
             return chats;
         };
         function remove(chat) {
@@ -203,6 +201,11 @@
             }
             return null;
         }
+        return {
+            all: all,
+            get: get,
+            remove: remove
+        };
     };
 })();
 'use strict';
@@ -223,9 +226,22 @@
 'use strict';
 
 (function () {
+    'use strict';
+
+    angular.module('starter.tab-dash').controller('dashController', DashController);
+
+    DashController.$inject = [];
+    function DashController() {
+        var $ctrl = this;
+        $ctrl.text = "hello how are you doing today?";
+    };
+})();
+'use strict';
+
+(function () {
     angular.module('starter.tab-chat').controller('chatsController', ChatController);
-    ChatController.$inject = ['chatService'];
-    function ChatController(chatService) {
+    ChatController.$inject = ['$scope', 'chatService'];
+    function ChatController($scope, chatService) {
 
         'use strict';
         // With the new view caching in Ionic, Controllers are only called
@@ -237,21 +253,12 @@
         //});
 
         var $ctrl = this;
+        $ctrl.text = "say something";
         $ctrl.chats = chatService.all();
         $ctrl.remove = function (chat) {
             chatService.remove(chat);
         };
     }
-})();
-'use strict';
-
-(function () {
-    'use strict';
-
-    angular.module('starter.tab-dash').controller('dashController', DashCtrl);
-
-    DashCtrl.$inject = [];
-    function DashCtrl() {};
 })();
 'use strict';
 
