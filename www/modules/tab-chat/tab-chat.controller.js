@@ -1,6 +1,6 @@
 (function () {
     angular.module('starter.tab-chat')
-        .controller('chatController', ChatController);
+        .controller('chatsController', ChatController);
     ChatController.$inject = ['chatService'];
     function ChatController(chatService) {
 

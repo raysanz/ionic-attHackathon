@@ -2,6 +2,6 @@
     'use strict';
     angular
         .module('starter.tab-dash')
-        .controller('DashCtrl', DashCtrl);
+        .controller('dashController', DashCtrl);
     DashCtrl.$inject = [];
 })()

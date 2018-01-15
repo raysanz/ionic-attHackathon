@@ -15,7 +15,7 @@
                 views: {
                     'tab-chats': {
                         templateUrl: '/www/modules/tab-chat/tab-chats.html',
-                        controller: 'ChatsCtrl'
+                        controller: 'chatsController as chatsCtrl'
                     }
                 }
             })
@@ -23,8 +23,8 @@
                 url: '/chats/:chatId',
                 views: {
                     'tab-chats': {
-                        templateUrl: '/www/modules/tab-chat/chat-detail.html',
-                        controller: 'ChatDetailCtrl'
+                        templateUrl: '/www/modules/tab-chat/chat-detail/chat-detail.html',
+                        controller: 'chatDetailController as chatDetailCtrl'
                     }
                 }
             })
