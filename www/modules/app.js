@@ -10,6 +10,7 @@
   angular.module('starter', [
     // ionic
     'ionic',
+    'ngCordova',
     // services
     'starter.services',
     // module routes and controllers
@@ -17,6 +18,7 @@
     'starter.tab-account',
     'starter.tab-chat',
     'starter.tab-dash',
+    'starter.tab-scroll'
   ])
 
     .run(function ($ionicPlatform) {

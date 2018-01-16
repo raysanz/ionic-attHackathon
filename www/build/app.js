@@ -12,11 +12,11 @@
 
   angular.module('starter', [
   // ionic
-  'ionic',
+  'ionic', 'ngCordova',
   // services
   'starter.services',
   // module routes and controllers
-  'starter.tab-nav', 'starter.tab-account', 'starter.tab-chat', 'starter.tab-dash']).run(function ($ionicPlatform) {
+  'starter.tab-nav', 'starter.tab-account', 'starter.tab-chat', 'starter.tab-dash', 'starter.tab-scroll']).run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -63,31 +63,6 @@
                 'tab-account': {
                     templateUrl: 'modules/tab-account/tab-account.html',
                     controller: 'accountController as accountCtrl'
-                }
-            }
-        });
-    };
-})();
-'use strict';
-
-/* global angular */
-(function () {
-    'use strict';
-
-    angular.module('starter.tab-dash', ['ui.router']).config(RouteConfig);
-
-    RouteConfig.$inject = ['$stateProvider'];
-
-    function RouteConfig($stateProvider) {
-        $stateProvider
-        // Each tab has its own nav history stack:
-
-        .state('tab.dash', {
-            url: '/dash',
-            views: {
-                'tab-dash': {
-                    templateUrl: 'modules/tab-dash/tab-dash.html',
-                    controller: 'dashController as dashCtrl'
                 }
             }
         });
@@ -147,6 +122,64 @@
 })();
 'use strict';
 
+/* global angular */
+(function () {
+    'use strict';
+
+    angular.module('starter.tab-dash', ['ui.router']).config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider
+        // Each tab has its own nav history stack:
+
+        .state('tab.dash', {
+            url: '/dash',
+            views: {
+                'tab-dash': {
+                    templateUrl: 'modules/tab-dash/tab-dash.html',
+                    controller: 'dashController as dashCtrl'
+                }
+            }
+        });
+    };
+})();
+'use strict';
+
+/* global angular */
+(function () {
+    'use strict';
+
+    angular.module('starter.tab-scroll', []).config(RouteConfig);
+
+    RouteConfig.$inject = ['$stateProvider'];
+
+    function RouteConfig($stateProvider) {
+        $stateProvider
+        // Each tab has its own nav history stack:
+        .state('tab.scroll', {
+            url: '/scroll',
+            views: {
+                'tab-scroll': {
+                    templateUrl: 'modules/tab-scroll/tab-scroll.html',
+                    controller: 'scrollController as scrollCtrl'
+                }
+            }
+        });
+        // .state('tab.chat-detail', {
+        //     url: '/chats/:chatId',
+        //     views: {
+        //         'tab-chats': {
+        //             templateUrl: 'modules/tab-chat/chat-detail/chat-detail.html',
+        //             controller: 'chatDetailController as chatDetailCtrl'
+        //         }
+        //     }
+        // })
+    };
+})();
+'use strict';
+
 (function () {
     'use strict';
 
@@ -187,7 +220,6 @@
         }];
 
         function all() {
-            debugger;
             return chats;
         };
         function remove(chat) {
@@ -226,19 +258,6 @@
 'use strict';
 
 (function () {
-    'use strict';
-
-    angular.module('starter.tab-dash').controller('dashController', DashController);
-
-    DashController.$inject = [];
-    function DashController() {
-        var $ctrl = this;
-        $ctrl.text = "hello how are you doing today?";
-    };
-})();
-'use strict';
-
-(function () {
     angular.module('starter.tab-chat').controller('chatsController', ChatController);
     ChatController.$inject = ['$scope', 'chatService'];
     function ChatController($scope, chatService) {
@@ -258,6 +277,98 @@
         $ctrl.remove = function (chat) {
             chatService.remove(chat);
         };
+    }
+})();
+'use strict';
+
+(function () {
+    'use strict';
+
+    angular.module('starter.tab-dash').controller('dashController', DashController);
+
+    DashController.$inject = [];
+    function DashController() {
+        var $ctrl = this;
+        $ctrl.text = "hello how are you doing today?";
+    };
+})();
+'use strict';
+
+(function () {
+    angular.module('starter.tab-scroll').controller('scrollController', ScrollController);
+    ScrollController.$inject = ['chatService', '$ionicPlatform', '$cordovaCamera', '$cordovaImagePicker'];
+    function ScrollController(chatService, $ionicPlatform, $cordovaCamera, $cordovaImagePicker) {
+
+        'use strict';
+        // With the new view caching in Ionic, Controllers are only called
+        // when they are recreated or on app start, instead of every page change.
+        // To listen for when this page is active (for example, to refresh data),
+        // listen for the $ionicView.enter event:
+        //
+        //$scope.$on('$ionicView.enter', function(e) {
+        //});
+
+        var $ctrl = this;
+        // Triggered in the registration modal to close it
+        $ctrl.closeRegister = function () {
+            $ctrl.registerform.hide();
+        };
+
+        // Open the registration modal
+        $ctrl.register = function () {
+            $ctrl.registerform.show();
+        };
+
+        // Perform the registration action when the user submits the registration form
+        $ctrl.doRegister = function () {
+            // Simulate a registration delay. Remove this and replace with your registration
+            // code if using a registration system
+            $timeout(function () {
+                $ctrl.closeRegister();
+            }, 1000);
+        };
+
+        //Code for calling the device camera
+        $ionicPlatform.ready(function () {
+            var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 100,
+                targetHeight: 100,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
+            $ctrl.takePicture = function () {
+                $cordovaCamera.getPicture(options).then(function (imageData) {
+                    $ctrl.registration.imgSrc = "data:image/jpeg;base64," + imageData;
+                }, function (err) {
+                    console.log(err);
+                });
+
+                $ctrl.registerform.show();
+            };
+        });
+
+        //Code for calling image gallery
+        $ionicPlatform.ready(function () {
+            var options = {
+                maximumImagesCount: 1,
+                width: 100,
+                height: 100,
+                quality: 50
+            };
+
+            $ctrl.chooseImage = function () {
+                $cordovaImagePicker.getPictures(options).then(function (imageChoice) {
+                    $ctrl.registration.imgSrc = imageChoice[0];
+                }, function (err) {
+                    console.log(err);
+                });
+            };
+        });
     }
 })();
 'use strict';

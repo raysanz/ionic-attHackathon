@@ -39,7 +39,6 @@
         }];
 
         function all() {
-            debugger;
             return chats;
         };
         function remove(chat) {
