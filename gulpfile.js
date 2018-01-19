@@ -40,6 +40,11 @@ const appWasBroken = {
   www: false
 }
 
+gulp.task('watch', ['sass','www-js'], function() {
+  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(source.www.src, ['www-js'])
+  
+});
 
 // concats angular files
 gulp.task('www-js', function () {
@@ -58,7 +63,7 @@ var paths = {
 };
 
 gulp.task('default', ['dev']);
-gulp.task('dev', ['www-js', 'sass'])
+gulp.task('dev', ['sass','www-js'])
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -73,10 +78,7 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', ['sass','www-js'], function() {
-  gulp.watch(source.www.src, ['www-js'])
-  gulp.watch(paths.sass, ['sass']);
-});
+
 
 const swallowError = function (src, task, error) {
     console.log(error.toString())
