@@ -1,0 +1,45 @@
+
+
+<ion-view view-title="Test">
+ 
+  </ion-nav-buttons>
+
+
+  <ion-content class="padding">
+    <h2>
+      {{testCtrl.testMessage}}
+    </h2>
+
+    <ion-item>
+      <!-- BASIC FORM TEXT INPUTS -->
+      <label class="item item-input">
+        <input type="text" placeholder="Name" />
+      </label>
+
+      <label class="item item-input">
+        <input type="text" placeholder="Email" />
+      </label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Pepperoni</ion-label>
+      <ion-checkbox [(ngModel)]="pepperoni" ng-click="testCtrl.selected('pepperoni')" ng-checked="testCtrl.checkBox('pepperoni') > -1"></ion-checkbox>
+
+
+    </ion-item>
+
+    <ion-item>
+      <div class="item range">
+        <ion-label>Range Test: {{testCtrl.sliderrange}}</ion-label>
+        <i class="icon ion-volume-low"></i>
+        <input type="range" id="inputRange" ng-model="testCtrl.sliderrange" name="volume" value="{{testCtrl.sliderrange}}" min="1"
+          max="100">
+        <i class="icon ion-volume-high"></i>
+      </div>
+
+    </ion-item>
+  </ion-content>
+  
+</ion-view>
+
+
